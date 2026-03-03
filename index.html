@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mergim Luxury Expenses</title>
+    <title>Mergim Luxury Finance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -11,146 +11,188 @@
             font-family: 'Poppins', sans-serif;
             background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
             color: #d4af37;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             margin: 0;
-            overflow: hidden;
+            padding: 20px;
         }
 
         .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            border-radius: 30px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            transform-style: preserve-3d;
+        }
+
+        input, select {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
             border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(212, 175, 55, 0.1);
-            border-radius: 24px;
-            padding: 40px;
-            width: 400px;
-            transition: transform 0.5s ease;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-        }
-
-        input {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid #444;
             color: white;
             padding: 12px;
             border-radius: 12px;
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             outline: none;
-            transition: 0.3s;
-        }
-
-        input:focus {
-            border-color: #d4af37;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
         .btn-gold {
             background: linear-gradient(135deg, #d4af37 0%, #f9e29c 50%, #b38728 100%);
-            color: black;
+            color: #000;
             font-weight: bold;
-            padding: 15px;
+            padding: 12px;
             border-radius: 12px;
-            cursor: pointer;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: none;
             width: 100%;
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            border: none;
         }
 
-        .btn-gold:hover {
-            filter: brightness(1.1);
+        .btn-gold:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+
+        .history-item {
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 4px solid #d4af37;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 8px;
+            animation: fadeIn 0.5s ease;
         }
 
-        #dashboard { display: none; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .expense-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        .icon-3d {
-            font-size: 40px;
-            text-shadow: 2px 5px 10px rgba(0,0,0,0.5);
-            margin-bottom: 20px;
-        }
+        #dashboard { display: none; }
     </style>
 </head>
 <body>
 
     <div id="login-screen" class="glass-card text-center">
-        <div class="icon-3d">🔑</div>
-        <h2 class="text-2xl font-bold mb-6">Sistemi Mergim</h2>
-        <input type="text" id="username" placeholder="ID (Mergim)">
-        <input type="password" id="password" placeholder="Password (mega123)">
-        <button onclick="login()" class="btn-gold">Kyqu me Stil</button>
-        <p id="error" class="text-red-500 mt-3 text-sm hidden">Të dhënat janë gabim!</p>
+        <h1 class="text-3xl font-bold mb-2">GOLDEN SYSTEM</h1>
+        <p class="text-gray-400 mb-8">Mirësevini, Mergim</p>
+        <input type="text" id="user" placeholder="ID: Mergim">
+        <input type="password" id="pass" placeholder="Password: mega123">
+        <button onclick="login()" class="btn-gold mt-4">Hyr në Panel</button>
     </div>
 
     <div id="dashboard" class="glass-card">
-        <h2 class="text-xl font-bold mb-6 text-center">Menaxhimi i Shpenzimeve 💎</h2>
-        
-        <div class="space-y-2">
-            <label class="text-xs uppercase">🩺 Shëndetësi</label>
-            <input type="number" id="health" placeholder="0 €">
-            
-            <label class="text-xs uppercase">🍱 Ushqim</label>
-            <input type="number" id="food" placeholder="0 €">
-            
-            <label class="text-xs uppercase">🚗 Kerr për Qikë</label>
-            <input type="number" id="car" placeholder="0 €">
-            
-            <label class="text-xs uppercase">⛽ Naftë</label>
-            <input type="number" id="fuel" placeholder="0 €">
-            
-            <label class="text-xs uppercase">📦 Të gjitha tjerat</label>
-            <input type="number" id="others" placeholder="0 €">
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <p id="current-date" class="text-xs text-gray-400 font-bold uppercase"></p>
+                <h2 class="text-xl font-bold">Mergim Finance 💎</h2>
+            </div>
+            <div class="text-right">
+                <p class="text-xs text-gray-400 uppercase">Mbetja</p>
+                <h2 id="balance-display" class="text-2xl font-bold text-white">0.00 €</h2>
+            </div>
         </div>
 
-        <button onclick="calculate()" class="btn-gold mt-6">Llogarit Totali</button>
+        <div class="mb-6 p-4 border border-yellow-900/30 rounded-2xl bg-black/20">
+            <label class="text-xs text-gray-400 uppercase">Vendos Rrogën (Start)</label>
+            <div class="flex gap-2">
+                <input type="number" id="salary-input" placeholder="p.sh. 500">
+                <button onclick="setSalary()" class="btn-gold w-24">Set</button>
+            </div>
+        </div>
 
-        <div id="result" class="mt-6 text-center hidden">
-            <p class="text-gray-400 text-sm">Totali Mujor:</p>
-            <h1 id="total-amount" class="text-4xl font-bold text-white mt-1">0 €</h1>
+        <div class="space-y-3">
+            <h3 class="text-sm font-semibold uppercase border-b border-yellow-900/30 pb-1">Shto Shpenzim të ri</h3>
+            <select id="category">
+                <option value="Ushqim">🍱 Ushqim</option>
+                <option value="Shendetsi">🩺 Shëndetësi</option>
+                <option value="Kerr per Qik">🚗 Kerr për Qikë</option>
+                <option value="Nafte">⛽ Naftë</option>
+                <option value="Tjera">📦 Tjera</option>
+            </select>
+            <input type="text" id="description" placeholder="Përshkrimi (p.sh. Blerje në market)">
+            <input type="number" id="amount" placeholder="Shuma €">
+            <button onclick="addExpense()" class="btn-gold">Regjistro Shpenzimin</button>
+        </div>
+
+        <div class="mt-8">
+            <h3 class="text-sm font-semibold uppercase mb-2">Historia e Shpenzimeve</h3>
+            <div id="history-list" class="max-h-60 overflow-y-auto pr-2">
+                </div>
         </div>
     </div>
 
     <script>
-        function login() {
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password').value;
+        let balance = 0;
 
-            if(user === "Mergim" && pass === "mega123") {
+        // Set date
+        const d = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').innerText = d.toLocaleDateString('sq-AL', options);
+
+        function login() {
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+            if(u === "Mergim" && p === "mega123") {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
             } else {
-                document.getElementById('error').classList.remove('hidden');
+                alert("ID ose Password gabim!");
             }
         }
 
-        function calculate() {
-            const h = parseFloat(document.getElementById('health').value) || 0;
-            const f = parseFloat(document.getElementById('food').value) || 0;
-            const c = parseFloat(document.getElementById('car').value) || 0;
-            const fu = parseFloat(document.getElementById('fuel').value) || 0;
-            const o = parseFloat(document.getElementById('others').value) || 0;
+        function setSalary() {
+            const val = parseFloat(document.getElementById('salary-input').value);
+            if(val > 0) {
+                balance = val;
+                updateUI();
+                alert("Rroga u vendos: " + val + "€");
+            }
+        }
 
-            const total = h + f + c + fu + o;
+        function addExpense() {
+            const cat = document.getElementById('category').value;
+            const desc = document.getElementById('description').value;
+            const amt = parseFloat(document.getElementById('amount').value);
+
+            if(!desc || !amt) {
+                alert("Plotëso përshkrimin dhe shumën!");
+                return;
+            }
+
+            if(amt > balance) {
+                alert("Nuk ke mjaftueshëm para në rrogë!");
+                return;
+            }
+
+            balance -= amt;
+            updateUI();
+
+            // Add to history
+            const list = document.getElementById('history-list');
+            const item = document.createElement('div');
+            item.className = 'history-item';
+            const time = new Date().toLocaleTimeString('sq-AL', {hour: '2-digit', minute:'2-digit'});
             
-            document.getElementById('result').classList.remove('hidden');
-            document.getElementById('total-amount').innerText = total.toLocaleString() + " €";
+            item.innerHTML = `
+                <div class="flex justify-between text-sm">
+                    <span class="font-bold text-white">${cat}</span>
+                    <span class="text-red-400">-${amt} €</span>
+                </div>
+                <div class="flex justify-between text-[10px] text-gray-400 uppercase mt-1">
+                    <span>${desc}</span>
+                    <span>${time}</span>
+                </div>
+            `;
+            list.prepend(item);
+
+            // Clear inputs
+            document.getElementById('description').value = "";
+            document.getElementById('amount').value = "";
+        }
+
+        function updateUI() {
+            document.getElementById('balance-display').innerText = balance.toFixed(2) + " €";
         }
     </script>
 </body>
