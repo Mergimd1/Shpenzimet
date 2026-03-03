@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mergim | Luxury Finance Pro</title>
+    <title>Mergim | Exclusive Finance 3D</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #d4af37;
-            --dark: #0d0d0d;
+            --dark: #050505;
             --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(212, 175, 55, 0.25);
+            --border: rgba(212, 175, 55, 0.2);
             --red: #ff4d4d;
             --green: #2ecc71;
+            --blue: #3498db;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #000;
-            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
+            background: var(--dark);
+            background-image: radial-gradient(circle at top right, #1a1a1a 0%, #000 100%);
             color: #fff;
             margin: 0;
             display: flex;
@@ -27,155 +28,165 @@
             padding: 20px;
         }
 
-        /* LOGIN SCREEN */
+        /* LOGIN SCREEN LUXURY */
         #login-screen {
             align-self: center;
             background: var(--glass);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
             padding: 50px;
-            border-radius: 30px;
+            border-radius: 40px;
             border: 1px solid var(--border);
             text-align: center;
             width: 100%;
             max-width: 380px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 0 20px rgba(212, 175, 55, 0.05);
         }
 
-        .logo-3d { font-size: 60px; margin-bottom: 10px; filter: drop-shadow(0 0 10px var(--gold)); }
+        .logo-3d { font-size: 70px; margin-bottom: 10px; filter: drop-shadow(0 0 20px var(--gold)); animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
         input, select, textarea {
             width: 100%;
             padding: 15px;
-            margin: 10px 0;
+            margin: 12px 0;
             background: rgba(255,255,255,0.05);
             border: 1px solid var(--border);
             color: #fff;
-            border-radius: 12px;
+            border-radius: 15px;
             font-size: 1rem;
             outline: none;
             box-sizing: border-box;
+            transition: 0.3s;
         }
+        input:focus { border-color: var(--gold); background: rgba(255,255,255,0.1); }
 
         button {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, #d4af37, #f2d06b);
+            padding: 16px;
+            background: linear-gradient(135deg, #d4af37 0%, #aa8928 100%);
             border: none;
             color: #000;
-            font-weight: 600;
-            border-radius: 12px;
+            font-weight: 700;
+            border-radius: 15px;
             cursor: pointer;
             transition: 0.4s;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 10px;
+            letter-spacing: 2px;
+            margin-top: 15px;
         }
-
-        button:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); }
+        button:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(212, 175, 55, 0.5); }
 
         /* DASHBOARD */
-        #dashboard { display: none; width: 100%; max-width: 600px; animation: fadeIn 0.8s ease; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        #dashboard { display: none; width: 100%; max-width: 650px; animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
 
         .card {
             background: var(--glass);
-            backdrop-filter: blur(10px);
-            padding: 25px;
-            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 25px;
             border: 1px solid var(--border);
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
 
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: center; margin-bottom: 15px; }
-        .stat-box { padding: 15px; border-radius: 15px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); }
-        .stat-box span { display: block; font-size: 0.8rem; color: #888; text-transform: uppercase; }
-        .stat-box strong { font-size: 1.4rem; color: var(--gold); }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
+        .stat-box { padding: 20px; border-radius: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); text-align: center; }
+        .stat-box span { display: block; font-size: 0.8rem; color: #aaa; margin-bottom: 5px; }
+        .stat-box strong { font-size: 1.6rem; color: var(--gold); text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
 
-        /* LISTA E HISTORISE */
-        .history-container { max-height: 400px; overflow-y: auto; padding-right: 5px; }
-        
+        #status-mesazhi { text-align: center; font-size: 0.9rem; margin-top: 10px; font-style: italic; color: var(--gold); }
+
+        /* HISTORY */
+        .history-container { max-height: 500px; overflow-y: auto; padding-right: 10px; }
         .history-item {
-            background: rgba(255,255,255,0.03);
-            border-left: 5px solid var(--gold);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 12px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        .history-item::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 0; bottom: 0; width: 6px;
+            background: var(--gold);
         }
 
-        .item-top { display: flex; justify-content: space-between; align-items: center; }
-        .item-cat { font-weight: 600; color: var(--gold); font-size: 1.1rem; }
-        .item-price { color: var(--red); font-weight: bold; }
-        .item-desc { font-size: 0.9rem; color: #bbb; font-style: italic; }
-        .item-date { font-size: 0.75rem; color: #666; align-self: flex-end; }
+        .item-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .item-cat { font-weight: 600; font-size: 1.1rem; color: #fff; }
+        .item-price { color: var(--red); font-weight: 800; font-size: 1.2rem; }
+        .item-desc { font-size: 0.95rem; color: #ccc; line-height: 1.4; }
+        .item-date { font-size: 0.7rem; color: #666; margin-top: 10px; text-align: right; }
 
-        .reset-btn {
-            background: none;
-            border: 1px solid var(--red);
-            color: var(--red);
-            font-size: 0.7rem;
-            margin-top: 20px;
-            padding: 5px;
-        }
+        /* SPECIAL COLORS */
+        .cat-luks { border-left: 6px solid #f1c40f !important; background: rgba(241, 196, 15, 0.05); }
+        .cat-qika { border-left: 6px solid #e84393 !important; background: rgba(232, 67, 147, 0.05); }
+        .cat-telekos { border-left: 6px solid #0984e3 !important; background: rgba(9, 132, 227, 0.05); }
 
-        .history-container::-webkit-scrollbar { width: 5px; }
-        .history-container::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+        .reset-btn { background: transparent; border: 1px solid #333; color: #555; font-size: 0.7rem; margin-top: 30px; height: 40px; width: auto; padding: 0 20px; }
+        .reset-btn:hover { border-color: var(--red); color: var(--red); box-shadow: none; }
 
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
     </style>
 </head>
 <body>
 
     <div id="login-screen">
-        <div class="logo-3d">⚜️</div>
-        <h2 style="letter-spacing: 2px;">MERGIM PRIVÉ</h2>
+        <div class="logo-3d">💎</div>
+        <h2 style="letter-spacing: 4px; font-weight: 300;">MERGIM <b style="font-weight: 600; color: var(--gold);">PRIVÉ</b></h2>
+        <p style="color: #666; font-size: 0.8rem; margin-bottom: 20px;">SISTEMI I MENAXHIMIT TË PASURISË</p>
         <input type="text" id="username" placeholder="ID Mergim">
         <input type="password" id="password" placeholder="Password mega123">
-        <button onclick="checkLogin()">Hyni në Dashboard</button>
+        <button onclick="checkLogin()">Hyni me Siguri</button>
     </div>
 
     <div id="dashboard">
         <div class="card">
             <div class="stats-grid">
-                <div class="stat-box"><span>Rroga</span><strong id="rroga-val">€0</strong></div>
-                <div class="stat-box"><span>Mbetja</span><strong id="mbetja-val">€0</strong></div>
+                <div class="stat-box"><span>BUXHETI TOTAL</span><strong id="rroga-val">€0</strong></div>
+                <div class="stat-box"><span>MBETJA NETO</span><strong id="mbetja-val">€0</strong></div>
             </div>
-            <input type="number" id="input-rroga" placeholder="Vendos rrogën e re (€)">
-            <button onclick="setRroga()">Përditëso Rrogën</button>
+            <div id="status-mesazhi">Mirësevini Mergim. Shënoni rrogën për të nisur.</div>
+            <input type="number" id="input-rroga" placeholder="Vendos rrogën mujore (€)">
+            <button onclick="setRroga()">Përditëso Portofolin</button>
         </div>
 
         <div class="card">
-            <h3 style="margin-top:0; color: var(--gold);">Shpenzim i Ri</h3>
+            <h3 style="margin-top:0; color: var(--gold); letter-spacing: 1px;">REGJISTRO TRANSAKSIONIN</h3>
             <select id="kategoria">
-                <option value="⚡ Rryma">Rryma</option>
-                <option value="💧 Uji">Uji</option>
-                <option value="🛒 Ushqimi">Ushqimi</option>
-                <option value="✨ Luks">Luks</option>
-                <option value="🌐 Internet">Internet</option>
-                <option value="🏦 Kredit">Kredit</option>
-                <option value="⛽ Naftë">Naftë</option>
-                <option value="🚗 Automjet">Automjet</option>
-                <option value="👕 Veshje">Veshje</option>
-                <option value="📱 Telefon IPKO">Telefon IPKO</option>
-                <option value="👧 Për Qikën">Për Qikën</option>
+                <option value="🛒 Ushqimi">🛒 Ushqimi</option>
+                <option value="✨ Luks">✨ Luks</option>
+                <option value="⛽ Naftë">⛽ Naftë</option>
+                <option value="🚗 Automjet">🚗 Automjet</option>
+                <option value="👧 Për Qikën">👧 Për Qikën</option>
+                <option value="🏦 Kredit">🏦 Kredit</option>
+                <option value="⚡ Rryma">⚡ Rryma</option>
+                <option value="💧 Uji">💧 Uji</option>
+                <option value="🌐 Internet">🌐 Internet</option>
+                <option value="👕 Veshje">👕 Veshje</option>
+                <option value="📱 Telefon IPKO">📱 Telefon IPKO</option>
+                <option value="📞 Telekos">📞 Telekos</option>
+                <option value="🌀 Tjera">🌀 Tjera</option>
             </select>
-            <input type="number" id="shuma" placeholder="Sa euro (€)?">
-            <textarea id="shenimi" rows="2" placeholder="Për çfarë u përdorën?"></textarea>
-            <button onclick="addShpenzim()" style="background: var(--red); color: white;">Regjistro & Zbrit</button>
+            <input type="number" id="shuma" placeholder="Shuma në €">
+            <textarea id="shenimi" rows="2" placeholder="Detaje mbi shpenzimin..."></textarea>
+            <button onclick="addShpenzim()" style="background: #fff; color: #000;">EKZEKUTO PAGESËN</button>
         </div>
 
-        <div class="card">
-            <h3 style="margin-top:0; color: var(--gold);">Historia (E Ruajtur)</h3>
+        <div class="card" style="background: rgba(0,0,0,0.2);">
+            <h3 style="margin-top:0; color: var(--gold);">ARKIVA FINANCIARE</h3>
             <div id="historia" class="history-container"></div>
-            <button class="reset-btn" onclick="resetTeGjitha()">Fshi të gjitha të dhënat</button>
+            <center><button class="reset-btn" onclick="resetTeGjitha()">RESETONI MUajin</button></center>
         </div>
     </div>
 
     <script>
-        // Ngarkimi i të dhënave kur hapet faqja
         let rrogaTotale = parseFloat(localStorage.getItem('rroga')) || 0;
         let mbetja = parseFloat(localStorage.getItem('mbetja')) || 0;
         let historia = JSON.parse(localStorage.getItem('historia')) || [];
@@ -189,7 +200,7 @@
                 shfaqHistorine();
                 updateUI();
             } else {
-                alert("ID ose Password gabim!");
+                alert("ID ose Password i pasaktë!");
             }
         }
 
@@ -205,15 +216,21 @@
         function addShpenzim() {
             const shuma = parseFloat(document.getElementById('shuma').value);
             const kategoria = document.getElementById('kategoria').value;
-            const shenimi = document.getElementById('shenimi').value || "Pa shënim";
+            const shenimi = document.getElementById('shenimi').value || "Blerje e përgjithshme";
             const data = new Date().toLocaleString('sq-AL');
 
-            if(isNaN(shuma)) return;
+            if(isNaN(shuma) || shuma <= 0) return;
 
             mbetja -= shuma;
             
-            const shpenzimiRi = { kategoria, shuma, shenimi, data };
-            historia.unshift(shpenzimiRi); // Shtoje ne fillim te listes
+            // Klasa speciale sipas kategorise
+            let klasaSpeciale = "";
+            if(kategoria.includes("Luks")) klasaSpeciale = "cat-luks";
+            if(kategoria.includes("Qikën")) klasaSpeciale = "cat-qika";
+            if(kategoria.includes("Telekos")) klasaSpeciale = "cat-telekos";
+
+            const shpenzimiRi = { kategoria, shuma, shenimi, data, klasaSpeciale };
+            historia.unshift(shpenzimiRi);
 
             saveData();
             shfaqHistorine();
@@ -228,7 +245,7 @@
             historyDiv.innerHTML = "";
             historia.forEach(item => {
                 const el = document.createElement('div');
-                el.className = 'history-item';
+                el.className = `history-item ${item.klasaSpeciale || ''}`;
                 el.innerHTML = `
                     <div class="item-top">
                         <span class="item-cat">${item.kategoria}</span>
@@ -248,13 +265,24 @@
         }
 
         function updateUI() {
-            document.getElementById('rroga-val').innerText = "€" + rrogaTotale.toFixed(2);
-            document.getElementById('mbetja-val').innerText = "€" + mbetja.toFixed(2);
-            document.getElementById('mbetja-val').style.color = mbetja < 0 ? "#ff4d4d" : "#2ecc71";
+            document.getElementById('rroga-val').innerText = "€" + rrogaTotale.toLocaleString();
+            document.getElementById('mbetja-val').innerText = "€" + mbetja.toLocaleString();
+            
+            const msg = document.getElementById('status-mesazhi');
+            if(mbetja < 0) {
+                document.getElementById('mbetja-val').style.color = "var(--red)";
+                msg.innerText = "Kujdes Mergim! Buxheti ka kaluar në minus.";
+            } else if (mbetja < (rrogaTotale * 0.2)) {
+                document.getElementById('mbetja-val').style.color = "#f39c12";
+                msg.innerText = "Mergim, keni harxhuar mbi 80% të rrogës.";
+            } else {
+                document.getElementById('mbetja-val').style.color = "var(--green)";
+                msg.innerText = "Gjendja financiare është e qëndrueshme.";
+            }
         }
 
         function resetTeGjitha() {
-            if(confirm("A jeni i sigurt që doni të fshini çdo gjë?")) {
+            if(confirm("Dëshironi të fshini të gjitha të dhënat dhe të filloni një muaj të ri?")) {
                 localStorage.clear();
                 location.reload();
             }
@@ -262,3 +290,4 @@
     </script>
 </body>
 </html>
+
