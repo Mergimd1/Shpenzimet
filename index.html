@@ -3,171 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mergim Luxury Finance v3</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Mergim | Luxury Finance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #d4af37; --dark: #0a0a0a; }
+        :root {
+            --gold: #d4af37;
+            --dark: #0a0a0a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(212, 175, 55, 0.3);
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background: radial-gradient(circle at top right, #1a1a1a, #000);
-            color: var(--gold);
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            color: white;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            display: flex; justify-content: center; align-items: center; margin: 0; padding: 15px;
+            overflow-x: hidden;
         }
-        .luxury-card {
-            background: rgba(15, 15, 15, 0.9);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 30px;
-            padding: 25px;
-            width: 100%; max-width: 450px;
-            box-shadow: 0 0 40px rgba(0,0,0,1), 0 0 20px rgba(212, 175, 55, 0.1);
-            transform: perspective(1000px) rotateX(2deg);
+
+        /* LOGIN STYLE */
+        #login-screen {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+            width: 350px;
         }
-        .gold-input {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid #333;
-            color: #fff;
-            padding: 12px; border-radius: 15px; width: 100%; margin-bottom: 12px; outline: none; transition: 0.3s;
+
+        .icon-3d {
+            font-size: 50px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px var(--gold);
         }
-        .gold-input:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
-        .btn-premium {
-            background: linear-gradient(145deg, #d4af37, #b38728);
-            color: #000; font-weight: 700; padding: 14px; border-radius: 15px; width: 100%;
-            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border: none; transition: 0.4s;
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--border);
+            color: white;
+            border-radius: 8px;
+            outline: none;
+            box-sizing: border-box;
         }
-        .btn-premium:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); }
-        .history-box {
-            max-height: 250px; overflow-y: auto; margin-top: 20px;
-            scrollbar-width: thin; scrollbar-color: var(--gold) transparent;
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: var(--gold);
+            border: none;
+            color: black;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
         }
-        .expense-item {
-            background: rgba(255,255,255,0.02);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            padding: 10px; margin-bottom: 5px; border-radius: 10px;
+
+        button:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--gold); }
+
+        /* DASHBOARD STYLE */
+        #dashboard { display: none; width: 90%; max-width: 800px; padding: 20px; }
+
+        .card {
+            background: var(--glass);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
         }
-        #login-panel, #main-panel { transition: all 0.5s ease; }
+
+        .stats { display: flex; justify-content: space-around; font-size: 1.2rem; }
+        .stats span { color: var(--gold); font-weight: bold; }
+
+        .shpenzo-btn { background: #e74c3c; color: white; margin-top: 10px; }
+
+        .list-item {
+            background: rgba(255,255,255,0.05);
+            margin: 5px 0;
+            padding: 10px;
+            border-left: 4px solid var(--gold);
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 <body>
 
-    <div id="login-panel" class="luxury-card text-center">
-        <div class="text-5xl mb-4">👑</div>
-        <h1 style="font-family: 'Orbitron';" class="text-2xl font-bold mb-6">MERGIM ELITE</h1>
-        <input type="text" id="user" class="gold-input" placeholder="ID: Mergim">
-        <input type="password" id="pass" class="gold-input" placeholder="Password: mega123">
-        <button onclick="checkLogin()" class="btn-premium mt-4">Hyr në Sistem</button>
+    <div id="login-screen">
+        <div class="icon-3d">👑</div>
+        <h2>MERGIM LUXE</h2>
+        <input type="text" id="username" placeholder="ID: Mergim">
+        <input type="password" id="password" placeholder="Password: mega123">
+        <button onclick="checkLogin()">Kyçu në Sistemin 3D</button>
     </div>
 
-    <div id="main-panel" class="luxury-card hidden">
-        <div class="flex justify-between items-start mb-6">
-            <div>
-                <p id="live-date" class="text-[10px] text-gray-500 font-bold uppercase"></p>
-                <h2 class="text-xl font-bold text-white">Mirëseveën Mergim!</h2>
+    <div id="dashboard">
+        <div class="card">
+            <h2>Përshëndetje Mergim</h2>
+            <div class="stats">
+                <div>Rroga: <span id="rroga-val">€0</span></div>
+                <div>Mbetja: <span id="mbetja-val">€0</span></div>
             </div>
-            <div class="text-right">
-                <p class="text-[10px] text-gray-500 uppercase">Mbetja Totale</p>
-                <h2 id="balance-val" class="text-2xl font-bold text-green-500">0.00 €</h2>
-            </div>
+            <input type="number" id="input-rroga" placeholder="Vendos rrogën mujore (€)">
+            <button onclick="setRroga()">Përditëso Rrogën</button>
         </div>
 
-        <div class="mb-6 p-4 rounded-2xl bg-white/5 border border-yellow-700/20">
-            <p class="text-[10px] mb-2 uppercase">Vendos Rrogën Mujore</p>
-            <div class="flex gap-2">
-                <input type="number" id="salary-in" class="gold-input mb-0" placeholder="€">
-                <button onclick="updateSalary()" class="btn-premium w-20 py-2">OK</button>
-            </div>
-        </div>
-
-        <div class="space-y-2">
-            <select id="cat" class="gold-input">
-                <option value="Ushqim">🍱 Ushqim</option>
-                <option value="Shendetsi">🩺 Shëndetësi</option>
-                <option value="Kerr per Qik">🚗 Kerr për Qikë</option>
-                <option value="Nafte">⛽ Naftë</option>
-                <option value="Tjera">💎 Tjera</option>
+        <div class="card">
+            <h3>Regjistro Shpenzim</h3>
+            <select id="kategoria">
+                <option value="Rryma">⚡ Rryma</option>
+                <option value="Uji">💧 Uji</option>
+                <option value="Ushqimi">🛒 Ushqimi</option>
+                <option value="Luks">✨ Luks</option>
+                <option value="Internet">🌐 Internet</option>
+                <option value="Kredit">🏦 Kredit</option>
+                <option value="Naft">⛽ Naftë</option>
+                <option value="Automjet">🚗 Automjet</option>
+                <option value="Veshje">👕 Veshje</option>
+                <option value="Telefon">📱 Telefon IPKO</option>
             </select>
-            <input type="text" id="desc" class="gold-input" placeholder="Për çfarë? (Përshkrimi)">
-            <input type="number" id="amt" class="gold-input" placeholder="Shuma €">
-            <button onclick="saveExpense()" class="btn-premium">Regjistro Shpenzimin</button>
+            <input type="number" id="shuma" placeholder="Sa euro (€)?">
+            <textarea id="shenimi" placeholder="Çfarë keni bërë me këto të holla?"></textarea>
+            <button class="shpenzo-btn" onclick="addShpenzim()">Zbrit nga Rroga</button>
         </div>
 
-        <div class="history-box" id="history-container">
-            </div>
-        
-        <button onclick="clearAll()" class="mt-4 text-[10px] text-red-800 uppercase font-bold text-center w-full">Fshi të gjitha të dhënat</button>
+        <div class="card">
+            <h3>Historia e Shpenzimeve</h3>
+            <div id="historia"></div>
+        </div>
     </div>
 
     <script>
-        let data = JSON.parse(localStorage.getItem('mergim_finances')) || { balance: 0, logs: [] };
-
-        // Set Real Date
-        const today = new Date();
-        document.getElementById('live-date').innerText = today.toLocaleDateString('sq-AL', { weekday: 'long', day: 'numeric', month: 'long' });
+        let rrogaTotale = 0;
+        let mbetja = 0;
 
         function checkLogin() {
-            if(document.getElementById('user').value === "Mergim" && document.getElementById('pass').value === "mega123") {
-                document.getElementById('login-panel').classList.add('hidden');
-                document.getElementById('main-panel').classList.remove('hidden');
-                render();
-            } else { alert("Të dhënat gabim!"); }
-        }
-
-        function updateSalary() {
-            const s = parseFloat(document.getElementById('salary-in').value);
-            if(s > 0) {
-                data.balance = s;
-                saveAndRender();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            if(user === "Mergim" && pass === "mega123") {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+            } else {
+                alert("ID ose Password i gabuar!");
             }
         }
 
-        function saveExpense() {
-            const c = document.getElementById('cat').value;
-            const d = document.getElementById('desc').value;
-            const a = parseFloat(document.getElementById('amt').value);
+        function setRroga() {
+            rrogaTotale = parseFloat(document.getElementById('input-rroga').value);
+            mbetja = rrogaTotale;
+            updateUI();
+        }
 
-            if(!d || !a) return alert("Plotëso të gjitha!");
-            if(a > data.balance) return alert("Nuk ke lekë mjaftueshëm!");
+        function addShpenzim() {
+            const shuma = parseFloat(document.getElementById('shuma').value);
+            const kategoria = document.getElementById('kategoria').value;
+            const shenimi = document.getElementById('shenimi').value;
+            const data = new Date().toLocaleDateString();
 
-            data.balance -= a;
-            const log = {
-                category: c,
-                description: d,
-                amount: a,
-                time: new Date().toLocaleTimeString('sq-AL', {hour:'2-digit', minute:'2-digit'})
-            };
-            data.logs.unshift(log);
-            saveAndRender();
+            if(isNaN(shuma)) return alert("Vendos nje shume!");
+
+            mbetja -= shuma;
             
-            document.getElementById('desc').value = "";
-            document.getElementById('amt').value = "";
-        }
+            const item = document.createElement('div');
+            item.className = 'list-item';
+            item.innerHTML = `<span><strong>${kategoria}</strong>: ${shenimi} (${data})</span> <span>-€${shuma}</span>`;
+            
+            document.getElementById('historia').prepend(item);
+            updateUI();
 
-        function saveAndRender() {
-            localStorage.setItem('mergim_finances', JSON.stringify(data));
-            render();
-        }
-
-        function render() {
-            document.getElementById('balance-val').innerText = data.balance.toFixed(2) + " €";
-            const container = document.getElementById('history-container');
-            container.innerHTML = data.logs.map(item => `
-                <div class="expense-item flex justify-between items-center">
-                    <div>
-                        <p class="text-white text-sm font-bold">${item.category}</p>
-                        <p class="text-[10px] text-gray-500">${item.description} | ${item.time}</p>
-                    </div>
-                    <div class="text-red-500 font-bold">-${item.amount} €</div>
-                </div>
-            `).join('');
-        }
-
-        function clearAll() {
-            if(confirm("A jeni i sigurt?")) {
-                localStorage.clear();
-                location.reload();
+            // AI MENDIMI
+            if(kategoria === "Luks") {
+                alert("Mergim, kujdes me Luksin! Mbetja po zbret, por stili mbetet.");
             }
+        }
+
+        function updateUI() {
+            document.getElementById('rroga-val').innerText = "€" + rrogaTotale;
+            document.getElementById('mbetja-val').innerText = "€" + mbetja;
         }
     </script>
 </body>
