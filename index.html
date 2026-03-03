@@ -1,13 +1,254 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="./src/main.tsx"></script>
-  </body>
-</html>
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shpenzimet e Mia Mujore</title>
+    <style>
+        /* --- STILI (CSS) --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #1a252f;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #219150;
+        }
+        .total-box {
+            background: #2980b9;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 25px;
+            font-size: 22px;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(41, 128, 185, 0.3);
+        }
+        .expense-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 25px;
+        }
+        .expense-item {
+            background: #f8f9fa;
+            border-left: 5px solid #3498db;
+            margin-bottom: 12px;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .expense-info strong {
+            display: block;
+            font-size: 16px;
+            color: #2c3e50;
+        }
+        .expense-info span {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+        .expense-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .delete-btn {
+            background: none;
+            color: #c0392b;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            width: auto;
+            margin-left: 10px;
+        }
+        .delete-btn:hover { background: none; color: #e74c3c; }
+        .price-container { display: flex; align-items: center; }
+    </style>
+</head>
+<body>
 
+    <div class="container">
+        <h2>📊 Shpenzimet e Mia</h2>
+
+        <div class="form-group">
+            <label>📝 Përshkrimi</label>
+            <input type="text" id="desc" placeholder="Psh: Blerje në market...">
+        </div>
+
+        <div class="form-group">
+            <label>💶 Çmimi (€ ose Lek)</label>
+            <input type="number" id="amount" placeholder="0.00" step="0.01">
+        </div>
+
+        <div class="form-group">
+            <label>📌 Kategoria</label>
+            <select id="category">
+                <option value="⛽ Naftë">⛽ Naftë</option>
+                <option value="🚗 Automjet">🚗 Automjet</option>
+                <option value="🍔 Ushqim">🍔 Ushqim</option>
+                <option value="💎 Luks">💎 Luks</option>
+                <option value="🎁 Dhurata">🎁 Dhurata</option>
+                <option value="👗 Veshje">👗 Veshje</option>
+                <option value="👧 Për Qikë">👧 Për Qikë</option>
+            </select>
+        </div>
+
+        <button onclick="addExpense()">➕ Ruaj Shpenzimin</button>
+
+        <div class="total-box">
+            Total këtë Muaj: <span id="total-amount">0.00</span>
+        </div>
+
+        <ul class="expense-list" id="expense-list"></ul>
+    </div>
+
+    <script>
+        /* --- LOGJIKA (JAVASCRIPT) --- */
+        
+        // Ngarkojmë të dhënat nga memoria e shfletuesit (nëse ka)
+        let expenses = JSON.parse(localStorage.getItem('shpenzimet')) || [];
+
+        // Funksioni për të shtuar një shpenzim të ri
+        function addExpense() {
+            const desc = document.getElementById('desc').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            const category = document.getElementById('category').value;
+            const date = new Date();
+
+            // Kontrollojmë nëse fushat janë të mbushura saktë
+            if (desc.trim() === '' || isNaN(amount) || amount <= 0) {
+                alert("Të lutem plotëso përshkrimin dhe vendos një çmim të saktë!");
+                return;
+            }
+
+            // Krijojmë objektin e shpenzimit
+            const expense = {
+                id: Math.floor(Math.random() * 100000000), // ID unike e rastësishme
+                desc: desc,
+                amount: amount,
+                category: category,
+                date: date.toISOString()
+            };
+
+            // E shtojmë në listë dhe e ruajmë
+            expenses.push(expense);
+            localStorage.setItem('shpenzimet', JSON.stringify(expenses));
+
+            // Pastrojmë fushat
+            document.getElementById('desc').value = '';
+            document.getElementById('amount').value = '';
+
+            // Rifreskojmë faqen vizualisht
+            updateUI();
+        }
+
+        // Funksioni për të fshirë një shpenzim gabim
+        function deleteExpense(id) {
+            expenses = expenses.filter(exp => exp.id !== id);
+            localStorage.setItem('shpenzimet', JSON.stringify(expenses));
+            updateUI();
+        }
+
+        // Funksioni që shfaq të dhënat në ekran
+        function updateUI() {
+            const list = document.getElementById('expense-list');
+            const totalSpan = document.getElementById('total-amount');
+            list.innerHTML = '';
+
+            // Marrim muajin dhe vitin aktual
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+
+            let total = 0;
+
+            // Filtrojmë që të shfaqim vetëm ato të këtij muaji
+            const monthlyExpenses = expenses.filter(exp => {
+                const expDate = new Date(exp.date);
+                return expDate.getMonth() === currentMonth && expDate.getFullYear() === currentYear;
+            });
+
+            // Vizatojmë listën HTML
+            monthlyExpenses.forEach(exp => {
+                total += exp.amount;
+                
+                // Formatojmë datën
+                const dateObj = new Date(exp.date);
+                const formattedDate = dateObj.toLocaleDateString('sq-AL', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+                const li = document.createElement('li');
+                li.className = 'expense-item';
+                li.innerHTML = `
+                    <div class="expense-info">
+                        <strong>${exp.category}</strong>
+                        <span>${exp.desc} (${formattedDate})</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="expense-price">-${exp.amount.toFixed(2)}</div>
+                        <button class="delete-btn" onclick="deleteExpense(${exp.id})" title="Fshi">✖</button>
+                    </div>
+                `;
+                list.appendChild(li);
+            });
+
+            // Përditësojmë totalin
+            totalSpan.innerText = total.toFixed(2);
+        }
+
+        // Kur hapet faqja, thërrasim funksionin për të shfaqur të dhënat ekzistuese
+        updateUI();
+    </script>
+
+</body>
+</html>
