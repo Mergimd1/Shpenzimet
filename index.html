@@ -3,192 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mergim | Luxury Finance</title>
+    <title>Mergim | Luxury Finance Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #d4af37;
-            --dark: #0a0a0a;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(212, 175, 55, 0.3);
+            --dark: #0d0d0d;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(212, 175, 55, 0.25);
+            --red: #ff4d4d;
+            --green: #2ecc71;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
-            color: white;
+            background: #000;
+            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
+            color: #fff;
             margin: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
+            padding: 20px;
         }
 
-        /* LOGIN STYLE */
+        /* LOGIN SCREEN */
         #login-screen {
+            align-self: center;
             background: var(--glass);
-            backdrop-filter: blur(15px);
-            padding: 40px;
-            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 30px;
             border: 1px solid var(--border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             text-align: center;
-            width: 350px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
 
-        .icon-3d {
-            font-size: 50px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px var(--gold);
-        }
+        .logo-3d { font-size: 60px; margin-bottom: 10px; filter: drop-shadow(0 0 10px var(--gold)); }
 
         input, select, textarea {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             margin: 10px 0;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
             border: 1px solid var(--border);
-            color: white;
-            border-radius: 8px;
+            color: #fff;
+            border-radius: 12px;
+            font-size: 1rem;
             outline: none;
             box-sizing: border-box;
         }
 
         button {
             width: 100%;
-            padding: 12px;
-            background: var(--gold);
+            padding: 15px;
+            background: linear-gradient(45deg, #d4af37, #f2d06b);
             border: none;
-            color: black;
-            font-weight: bold;
-            border-radius: 8px;
+            color: #000;
+            font-weight: 600;
+            border-radius: 12px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.4s;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
         }
 
-        button:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--gold); }
+        button:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); }
 
-        /* DASHBOARD STYLE */
-        #dashboard { display: none; width: 90%; max-width: 800px; padding: 20px; }
+        /* DASHBOARD */
+        #dashboard { display: none; width: 100%; max-width: 600px; animation: fadeIn 0.8s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .card {
             background: var(--glass);
-            padding: 20px;
-            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
             border: 1px solid var(--border);
             margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .stats { display: flex; justify-content: space-around; font-size: 1.2rem; }
-        .stats span { color: var(--gold); font-weight: bold; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: center; margin-bottom: 15px; }
+        .stat-box { padding: 15px; border-radius: 15px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); }
+        .stat-box span { display: block; font-size: 0.8rem; color: #888; text-transform: uppercase; }
+        .stat-box strong { font-size: 1.4rem; color: var(--gold); }
 
-        .shpenzo-btn { background: #e74c3c; color: white; margin-top: 10px; }
-
-        .list-item {
-            background: rgba(255,255,255,0.05);
-            margin: 5px 0;
-            padding: 10px;
-            border-left: 4px solid var(--gold);
+        /* LISTA E HISTORISE */
+        .history-container { max-height: 400px; overflow-y: auto; padding-right: 5px; }
+        
+        .history-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 5px solid var(--gold);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 5px;
         }
+
+        .item-top { display: flex; justify-content: space-between; align-items: center; }
+        .item-cat { font-weight: 600; color: var(--gold); font-size: 1.1rem; }
+        .item-price { color: var(--red); font-weight: bold; }
+        .item-desc { font-size: 0.9rem; color: #bbb; font-style: italic; }
+        .item-date { font-size: 0.75rem; color: #666; align-self: flex-end; }
+
+        .reset-btn {
+            background: none;
+            border: 1px solid var(--red);
+            color: var(--red);
+            font-size: 0.7rem;
+            margin-top: 20px;
+            padding: 5px;
+        }
+
+        .history-container::-webkit-scrollbar { width: 5px; }
+        .history-container::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+
     </style>
 </head>
 <body>
 
     <div id="login-screen">
-        <div class="icon-3d">👑</div>
-        <h2>MERGIM LUXE</h2>
-        <input type="text" id="username" placeholder="ID: Mergim">
-        <input type="password" id="password" placeholder="Password: mega123">
-        <button onclick="checkLogin()">Kyçu në Sistemin 3D</button>
+        <div class="logo-3d">⚜️</div>
+        <h2 style="letter-spacing: 2px;">MERGIM PRIVÉ</h2>
+        <input type="text" id="username" placeholder="ID Mergim">
+        <input type="password" id="password" placeholder="Password mega123">
+        <button onclick="checkLogin()">Hyni në Dashboard</button>
     </div>
 
     <div id="dashboard">
         <div class="card">
-            <h2>Përshëndetje Mergim</h2>
-            <div class="stats">
-                <div>Rroga: <span id="rroga-val">€0</span></div>
-                <div>Mbetja: <span id="mbetja-val">€0</span></div>
+            <div class="stats-grid">
+                <div class="stat-box"><span>Rroga</span><strong id="rroga-val">€0</strong></div>
+                <div class="stat-box"><span>Mbetja</span><strong id="mbetja-val">€0</strong></div>
             </div>
-            <input type="number" id="input-rroga" placeholder="Vendos rrogën mujore (€)">
+            <input type="number" id="input-rroga" placeholder="Vendos rrogën e re (€)">
             <button onclick="setRroga()">Përditëso Rrogën</button>
         </div>
 
         <div class="card">
-            <h3>Regjistro Shpenzim</h3>
+            <h3 style="margin-top:0; color: var(--gold);">Shpenzim i Ri</h3>
             <select id="kategoria">
-                <option value="Rryma">⚡ Rryma</option>
-                <option value="Uji">💧 Uji</option>
-                <option value="Ushqimi">🛒 Ushqimi</option>
-                <option value="Luks">✨ Luks</option>
-                <option value="Internet">🌐 Internet</option>
-                <option value="Kredit">🏦 Kredit</option>
-                <option value="Naft">⛽ Naftë</option>
-                <option value="Automjet">🚗 Automjet</option>
-                <option value="Veshje">👕 Veshje</option>
-                <option value="Telefon">📱 Telefon IPKO</option>
+                <option value="⚡ Rryma">Rryma</option>
+                <option value="💧 Uji">Uji</option>
+                <option value="🛒 Ushqimi">Ushqimi</option>
+                <option value="✨ Luks">Luks</option>
+                <option value="🌐 Internet">Internet</option>
+                <option value="🏦 Kredit">Kredit</option>
+                <option value="⛽ Naftë">Naftë</option>
+                <option value="🚗 Automjet">Automjet</option>
+                <option value="👕 Veshje">Veshje</option>
+                <option value="📱 Telefon IPKO">Telefon IPKO</option>
+                <option value="👧 Për Qikën">Për Qikën</option>
             </select>
             <input type="number" id="shuma" placeholder="Sa euro (€)?">
-            <textarea id="shenimi" placeholder="Çfarë keni bërë me këto të holla?"></textarea>
-            <button class="shpenzo-btn" onclick="addShpenzim()">Zbrit nga Rroga</button>
+            <textarea id="shenimi" rows="2" placeholder="Për çfarë u përdorën?"></textarea>
+            <button onclick="addShpenzim()" style="background: var(--red); color: white;">Regjistro & Zbrit</button>
         </div>
 
         <div class="card">
-            <h3>Historia e Shpenzimeve</h3>
-            <div id="historia"></div>
+            <h3 style="margin-top:0; color: var(--gold);">Historia (E Ruajtur)</h3>
+            <div id="historia" class="history-container"></div>
+            <button class="reset-btn" onclick="resetTeGjitha()">Fshi të gjitha të dhënat</button>
         </div>
     </div>
 
     <script>
-        let rrogaTotale = 0;
-        let mbetja = 0;
+        // Ngarkimi i të dhënave kur hapet faqja
+        let rrogaTotale = parseFloat(localStorage.getItem('rroga')) || 0;
+        let mbetja = parseFloat(localStorage.getItem('mbetja')) || 0;
+        let historia = JSON.parse(localStorage.getItem('historia')) || [];
 
         function checkLogin() {
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password').value;
-            if(user === "Mergim" && pass === "mega123") {
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            if(u === "Mergim" && p === "mega123") {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
+                shfaqHistorine();
+                updateUI();
             } else {
-                alert("ID ose Password i gabuar!");
+                alert("ID ose Password gabim!");
             }
         }
 
         function setRroga() {
-            rrogaTotale = parseFloat(document.getElementById('input-rroga').value);
-            mbetja = rrogaTotale;
+            const val = parseFloat(document.getElementById('input-rroga').value);
+            if(isNaN(val)) return;
+            rrogaTotale = val;
+            mbetja = val;
+            saveData();
             updateUI();
         }
 
         function addShpenzim() {
             const shuma = parseFloat(document.getElementById('shuma').value);
             const kategoria = document.getElementById('kategoria').value;
-            const shenimi = document.getElementById('shenimi').value;
-            const data = new Date().toLocaleDateString();
+            const shenimi = document.getElementById('shenimi').value || "Pa shënim";
+            const data = new Date().toLocaleString('sq-AL');
 
-            if(isNaN(shuma)) return alert("Vendos nje shume!");
+            if(isNaN(shuma)) return;
 
             mbetja -= shuma;
             
-            const item = document.createElement('div');
-            item.className = 'list-item';
-            item.innerHTML = `<span><strong>${kategoria}</strong>: ${shenimi} (${data})</span> <span>-€${shuma}</span>`;
-            
-            document.getElementById('historia').prepend(item);
+            const shpenzimiRi = { kategoria, shuma, shenimi, data };
+            historia.unshift(shpenzimiRi); // Shtoje ne fillim te listes
+
+            saveData();
+            shfaqHistorine();
             updateUI();
 
-            // AI MENDIMI
-            if(kategoria === "Luks") {
-                alert("Mergim, kujdes me Luksin! Mbetja po zbret, por stili mbetet.");
-            }
+            document.getElementById('shuma').value = "";
+            document.getElementById('shenimi').value = "";
+        }
+
+        function shfaqHistorine() {
+            const historyDiv = document.getElementById('historia');
+            historyDiv.innerHTML = "";
+            historia.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'history-item';
+                el.innerHTML = `
+                    <div class="item-top">
+                        <span class="item-cat">${item.kategoria}</span>
+                        <span class="item-price">- €${item.shuma.toFixed(2)}</span>
+                    </div>
+                    <div class="item-desc">${item.shenimi}</div>
+                    <div class="item-date">${item.data}</div>
+                `;
+                historyDiv.appendChild(el);
+            });
+        }
+
+        function saveData() {
+            localStorage.setItem('rroga', rrogaTotale);
+            localStorage.setItem('mbetja', mbetja);
+            localStorage.setItem('historia', JSON.stringify(historia));
         }
 
         function updateUI() {
-            document.getElementById('rroga-val').innerText = "€" + rrogaTotale;
-            document.getElementById('mbetja-val').innerText = "€" + mbetja;
+            document.getElementById('rroga-val').innerText = "€" + rrogaTotale.toFixed(2);
+            document.getElementById('mbetja-val').innerText = "€" + mbetja.toFixed(2);
+            document.getElementById('mbetja-val').style.color = mbetja < 0 ? "#ff4d4d" : "#2ecc71";
+        }
+
+        function resetTeGjitha() {
+            if(confirm("A jeni i sigurt që doni të fshini çdo gjë?")) {
+                localStorage.clear();
+                location.reload();
+            }
         }
     </script>
 </body>
